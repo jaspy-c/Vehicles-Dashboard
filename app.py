@@ -29,13 +29,13 @@ def main():
   brand_counts = df.groupby(['brand', 'condition']).size().reset_index(name='count')
   
   fig = px.bar(brand_counts, x='brand', y='count', color='condition', title='Total Count by Brand and Condition')
-  fig.update_layout(xaxis_categoryorder='total descending')
+  fig.update_layout(xaxis_categoryorder='total descending', xaxis_title='Brand of Vehicles', yaxis_title='Number of Vehicles')
   st.plotly_chart(fig)
 
   brand_price = df.groupby(['brand', 'condition']).agg({"price":"mean"}).reset_index()
 
   fig = px.bar(brand_price, x='brand', y='price', color='condition', title='Average Price by Brand and Condition')
-  fig.update_layout(xaxis_categoryorder='total descending')
+  fig.update_layout(xaxis_categoryorder='total descending', xaxis_title='Brand of Vehicles', yaxis_title='Average Price of Vehicle')
   st.plotly_chart(fig)
   
   
@@ -45,7 +45,8 @@ def main():
     hist_fig = px.histogram(year_condition, x='model_year', y='count', nbins=100, color='condition', histnorm='probability', title='Number of Vehicles by Model Year and Condition (Normalized)')
   else:
     hist_fig = px.histogram(year_condition, x='model_year', y='count', nbins=100, color='condition', title='Number of Vehicles by Model Year and Condition (Non-Normalized)')
-  
+    
+  hist_fig.update_layout(xaxis_title='Model Year of Vehicle', yaxis_title='Number of Vehicles')
   st.plotly_chart(hist_fig)
 
   
@@ -78,8 +79,8 @@ def main():
 
   # Set x and y axis labels
   combined_fig.update_layout(
-    xaxis_title='Condition',
-    yaxis_title='Average Price'
+    xaxis_title='Condition of Vehicle',
+    yaxis_title='Average Price of Vehicle'
   )
   # Display the combined plot
   st.plotly_chart(combined_fig)
